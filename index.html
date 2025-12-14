@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Teams - Лицей информационных технологий №28 г. Кирова</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #323130;
+        }
+        
+        /* Начальный экран Teams */
+        .teams-landing {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #464775 0%, #2b2b5c 100%);
+            color: white;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .login-btn {
+            background-color: white;
+            color: #464775;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .main-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .main-content p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .warning-box {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 800px;
+            text-align: left;
+        }
+        
+        .warning-box h3 {
+            margin-bottom: 10px;
+            color: #ffb900;
+        }
+        
+        .country-select {
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 20px 0;
+            width: 300px;
+        }
+        
+        .download-section {
+            background-color: white;
+            color: #323130;
+            padding: 60px 20px;
+        }
+        
+        .plans-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .plan-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .plan-card.unavailable {
+            opacity: 0.6;
+            position: relative;
+        }
+        
+        .plan-card.unavailable::after {
+            content: "Этот продукт в настоящее время недоступен для вашей страны или региона.";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            background-color: #ffb900;
+            color: #000;
+            padding: 5px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        /* Экран входа */
+        .login-screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            padding: 20px;
+            display: none;
+        }
+        
+        .microsoft-login {
+            width: 100%;
+            max-width: 440px;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .ms-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #464775;
+        }
+        
+        .ms-logo img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .login-form h2 {
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        
+        .login-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d1d1;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .login-btn-full {
+            width: 100%;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .login-btn-full:hover {
+            background-color: #006cbd;
+        }
+        
+        /* Главное меню */
+        .teams-main {
+            min-height: 100vh;
+            display: none;
+            flex-direction: column;
+        }
+        
+        .teams-header {
+            background-color: #464775;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .teams-sidebar {
+            width: 70px;
+            background-color: #f0f0f0;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .teams-content {
+            flex: 1;
+            padding: 30px;
+            background-color: white;
+        }
+        
+        .assignment-card {
+            background-color: #f3f2f1;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-left: 4px solid #0078d4;
+        }
+        
+        .assignment-card:hover {
+            background-color: #e1dfdd;
+        }
+        
+        .assignment-card h3 {
+            color: #0078d4;
+            margin-bottom: 10px;
+        }
+        
+        .assignment-card .deadline {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Тест */
+        .test-screen {
+            min-height: 100vh;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .test-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        
+        .test-progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background-color: #e1e1e1;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #0078d4;
+            width: 10%;
+            transition: width 0.5s;
+        }
+        
+        .question {
+            font-size: 20px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 1px solid #d1d1d1;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option:hover {
+            background-color: #f5f5f5;
+            border-color: #0078d4;
+        }
+        
+        .option.selected {
+            background-color: #e7f3ff;
+            border-color: #0078d4;
+        }
+        
+        .test-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .nav-btn:disabled {
+            background-color: #c8c8c8;
+            cursor: not-allowed;
+        }
+        
+        .finish-btn {
+            background-color: #107c10;
+        }
+        
+        .test-result {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .result-score {
+            font-size: 48px;
+            color: #107c10;
+            margin: 20px 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Начальный экран Microsoft Teams -->
+    <div class="teams-landing" id="landingScreen">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <span>Microsoft Teams</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Обзор</a></li>
+                <li><a href="#">Планы и цены</a></li>
+                <li><a href="#">Поддержка</a></li>
+                <li><a href="#">Скачать Teams</a></li>
+            </ul>
+            <button class="login-btn" onclick="showLoginScreen()">Вход</button>
+        </nav>
+        
+        <div class="main-content">
+            <h1>Microsoft Teams</h1>
+            <p>Приложение Teams поможет вам организовать жизнь и работу, общаться в чате и по телефону с любыми пользователями, а также безопасно работать с файлами.</p>
+            
+            <div class="warning-box">
+                <h3>Майкрософт приостановил все новые продажи продуктов и услуг в Беларуси и России.</h3>
+                <p>Choose your billing country/region:</p>
+                <select class="country-select">
+                    <option>Россия</option>
+                    <option>Беларусь</option>
+                    <option>Казахстан</option>
+                    <option>Другие страны</option>
+                </select>
+            </div>
+            
+            <button class="login-btn" style="padding: 15px 40px; font-size: 18px;" onclick="showLoginScreen()">Войти</button>
+            <p style="margin-top: 20px;">или <a href="#" style="color: #ffb900;">Скачать Teams</a></p>
+        </div>
+        
+        <div class="download-section">
+            <div class="plans-section">
+                <h2 style="text-align: center; margin-bottom: 40px;">Планы</h2>
+                <div class="plans-grid">
+                    <div class="plan-card">
+                        <h3>Бесплатная версия Teams</h3>
+                        <p style="font-size: 24px; margin: 20px 0;">Бесплатно</p>
+                        <ul style="list-style-position: inside; text-align: left; line-height: 1.8;">
+                            <li>Для 1 пользователя</li>
+                            <li>5 ГБ места в облачном хранилище</li>
+                            <li>Групповые звонки до 60 минут, до 100 участников</li>
+                            <li>Чаты с семьей и друзьями без ограничений</li>
+                            <li>Совместное планирование с использованием задач и опросов</li>
+                        </ul>
+                        <button class="login-btn" style="margin-top: 20px; width: 100%;">Бесплатная регистрация</button>
+                    </div>
+                    
+                    <div class="plan-card unavailable">
+                        <h3>Microsoft 365 персональный</h3>
+                        <p style="font-size: 24px; margin: 20px 0;">Этот продукт в настоящее время недоступен</p>
+                        <ul style="list-style-position: inside; text-align: left; line-height: 1.8;">
+                            <li>Для 1 пользователя</li>
+                            <li>Использование на пяти устройствах одновременно</li>
+                            <li>Работает на компьютерах с Windows, Mac, iPhone, iPad</li>
+                            <li>1 ТБ (1000 ГБ) места в защищенном облачном хранилище</li>
+                            <li>Классические приложения Word, Excel, PowerPoint</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plan-card unavailable">
+                        <h3>Microsoft 365 для семьи</h3>
+                        <p style="font-size: 24px; margin: 20px 0;">Этот продукт в настоящее время недоступен</p>
+                        <ul style="list-style-position: inside; text-align: left; line-height: 1.8;">
+                            <li>От 1 до 6 пользователей</li>
+                            <li>Каждый человек может использовать на пяти устройствах одновременно</li>
+                            <li>До 6 ТБ места в облачном хранилище</li>
+                            <li>Классические приложения Word, Excel, PowerPoint</li>
+                            <li>Расширенные средства безопасности</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Экран входа -->
+    <div class="login-screen" id="loginScreen">
+        <div class="microsoft-login">
+            <div class="ms-logo">
+                <div style="width: 40px; height: 40px; background-color: #464775; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: bold; color: white;">MS</div>
+                <span>Microsoft</span>
+            </div>
+            
+            <div class="login-form">
+                <h2>Вход в Microsoft Teams</h2>
+                <p style="margin-bottom: 20px; color: #666;">Лицей информационных технологий №28 г. Кирова</p>
+                
+                <input type="text" class="login-input" id="username" placeholder="Логин, email или телефон" value="Плехов">
+                <input type="password" class="login-input" id="password" placeholder="Пароль" value="2011">
+                
+                <button class="login-btn-full" onclick="login()">Войти</button>
+                
+                <div style="margin-top: 20px; text-align: center;">
+                    <a href="#" style="color: #0078d4; text-decoration: none;">Нет учетной записи?</a>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px; text-align: center; color: #666; max-width: 440px;">
+            <p>Выберите язык для входа: <a href="#" style="color: #0078d4;">Русский</a></p>
+            <p style="margin-top: 20px; font-size: 14px;">© Microsoft 2025</p>
+        </div>
+    </div>
+    
+    <!-- Главное меню Teams -->
+    <div class="teams-main" id="mainScreen">
+        <div class="teams-header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="width: 30px; height: 30px; background-color: white; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: bold; color: #464775;">28</div>
+                <span>Лицей информационных технологий №28 г. Кирова</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <span>Плехов</span>
+                <div style="width: 35px; height: 35px; background-color: #ffb900; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">П</div>
+            </div>
+        </div>
+        
+        <div style="display: flex; flex: 1;">
+            <div class="teams-sidebar">
+                <div style="width: 40px; height: 40px; background-color: #e1e1e1; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;">🏠</div>
+                <div style="width: 40px; height: 40px; background-color: #e1e1e1; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;">📅</div>
+                <div style="width: 40px; height: 40px; background-color: #e1e1e1; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;">💬</div>
+                <div style="width: 40px; height: 40px; background-color: #0078d4; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white;">📚</div>
+            </div>
+            
+            <div class="teams-content">
+                <h2 style="margin-bottom: 30px;">Задания</h2>
+                
+                <div class="assignment-card" onclick="startTest()">
+                    <h3>Алгебра. Пикова Марина Владимировна</h3>
+                    <p>Тест по теме "Квадратные уравнения и дискриминант"</p>
+                    <p class="deadline">Срок сдачи: 15.12.2025</p>
+                </div>
+                
+                <div class="assignment-card">
+                    <h3>Геометрия. Смирнов Алексей Петрович</h3>
+                    <p>Домашнее задание по теме "Теорема Пифагора"</p>
+                    <p class="deadline">Срок сдачи: 16.12.2025</p>
+                </div>
+                
+                <div class="assignment-card">
+                    <h3>Информатика. Козлов Дмитрий Сергеевич</h3>
+                    <p>Проект "Создание веб-страницы"</p>
+                    <p class="deadline">Срок сдачи: 18.12.2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Экран теста -->
+    <div class="test-screen" id="testScreen">
+        <div class="test-container" id="testContainer">
+            <div class="test-header">
+                <h2>Тест: Квадратные уравнения и дискриминант</h2>
+                <div style="font-weight: bold;">Вопрос <span id="currentQuestion">1</span> из 10</div>
+            </div>
+            
+            <div class="test-progress">
+                <span>Прогресс:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span id="progressPercent">10%</span>
+            </div>
+            
+            <div class="question" id="questionText">
+                Какой вид имеет общая формула квадратного уравнения?
+            </div>
+            
+            <div class="options" id="optionsContainer">
+                <div class="option" onclick="selectOption(0)">ax + b = 0</div>
+                <div class="option" onclick="selectOption(1)">ax² + bx + c = 0</div>
+                <div class="option" onclick="selectOption(2)">ax³ + bx² + cx + d = 0</div>
+                <div class="option" onclick="selectOption(3)">x² = a</div>
+            </div>
+            
+            <div class="test-navigation">
+                <button class="nav-btn" id="prevBtn" onclick="prevQuestion()" disabled>Назад</button>
+                <button class="nav-btn" id="nextBtn" onclick="nextQuestion()">Далее</button>
+            </div>
+        </div>
+        
+        <div class="test-container hidden" id="resultContainer">
+            <div class="test-result">
+                <h2>Тест завершен!</h2>
+                <p>Алгебра. Пикова Марина Владимировна</p>
+                <p>Тема: "Квадратные уравнения и дискриминант"</p>
+                <div class="result-score" id="score">0/10</div>
+                <p id="resultMessage">Ваш результат обрабатывается...</p>
+                <button class="nav-btn finish-btn" onclick="backToMain()" style="margin-top: 30px;">Вернуться к заданиям</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные теста
+        const testQuestions = [
+            {
+                question: "Какой вид имеет общая формула квадратного уравнения?",
+                options: ["ax + b = 0", "ax² + bx + c = 0", "ax³ + bx² + cx + d = 0", "x² = a"],
+                correct: 1
+            },
+            {
+                question: "Что такое дискриминант квадратного уравнения?",
+                options: ["Сумма корней уравнения", "Произведение корней уравнения", "Выражение D = b² - 4ac", "Отношение коэффициентов a и b"],
+                correct: 2
+            },
+            {
+                question: "Если дискриминант больше нуля, то квадратное уравнение имеет:",
+                options: ["Один корень", "Два различных корня", "Не имеет корней", "Бесконечное количество корней"],
+                correct: 1
+            },
+            {
+                question: "Если дискриминант равен нулю, то квадратное уравнение имеет:",
+                options: ["Два различных корня", "Один корень (два одинаковых)", "Не имеет корней", "Три корня"],
+                correct: 1
+            },
+            {
+                question: "Если дискриминант меньше нуля, то квадратное уравнение:",
+                options: ["Имеет два корня", "Имеет один корень", "Не имеет действительных корней", "Имеет бесконечное число корней"],
+                correct: 2
+            },
+            {
+                question: "По какой формуле вычисляются корни квадратного уравнения при D ≥ 0?",
+                options: ["x = -b/a", "x = ±√c", "x = (-b ± √D) / (2a)", "x = b/(2a)"],
+                correct: 2
+            },
+            {
+                question: "Решите уравнение: x² - 5x + 6 = 0",
+                options: ["x = 2, x = 3", "x = -2, x = -3", "x = 1, x = 6", "x = -1, x = 6"],
+                correct: 0
+            },
+            {
+                question: "Чему равен дискриминант уравнения: 2x² - 3x + 1 = 0?",
+                options: ["D = 1", "D = 0", "D = -1", "D = 9"],
+                correct: 0
+            },
+            {
+                question: "Сколько корней имеет уравнение: x² + 4x + 5 = 0?",
+                options: ["Два различных корня", "Один корень", "Не имеет действительных корней", "Три корня"],
+                correct: 2
+            },
+            {
+                question: "Если в квадратном уравнении коэффициент a = 0, то уравнение:",
+                options: ["Остается квадратным", "Превращается в линейное", "Не имеет решений", "Всегда имеет один корень"],
+                correct: 1
+            }
+        ];
+
+        let currentScreen = "landing";
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(testQuestions.length).fill(-1);
+        let testCompleted = false;
+
+        // Функции переключения экранов
+        function showLoginScreen() {
+            document.getElementById('landingScreen').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('mainScreen').style.display = 'none';
+            document.getElementById('testScreen').style.display = 'none';
+            currentScreen = "login";
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === "Плехов" && password === "2011") {
+                document.getElementById('landingScreen').style.display = 'none';
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainScreen').style.display = 'flex';
+                document.getElementById('testScreen').style.display = 'none';
+                currentScreen = "main";
+            } else {
+                alert("Неверный логин или пароль. Попробуйте снова.\nПодсказка: логин: Плехов, пароль: 2011");
+            }
+        }
+
+        function startTest() {
+            document.getElementById('landingScreen').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainScreen').style.display = 'none';
+            document.getElementById('testScreen').style.display = 'flex';
+            currentScreen = "test";
+            
+            currentQuestionIndex = 0;
+            userAnswers = new Array(testQuestions.length).fill(-1);
+            testCompleted = false;
+            
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function loadQuestion(index) {
+            const question = testQuestions[index];
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('currentQuestion').textContent = index + 1;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, i) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[index] === i) {
+                    optionElement.classList.add('selected');
+                }
+                optionElement.textContent = option;
+                optionElement.onclick = () => selectOption(i);
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Обновление прогресса
+            const progressPercent = ((index + 1) / testQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = `${progressPercent}%`;
+            document.getElementById('progressPercent').textContent = `${Math.round(progressPercent)}%`;
+            
+            // Обновление кнопок навигации
+            document.getElementById('prevBtn').disabled = index === 0;
+            
+            if (index === testQuestions.length - 1) {
+                document.getElementById('nextBtn').textContent = 'Завершить';
+                document.getElementById('nextBtn').classList.add('finish-btn');
+            } else {
+                document.getElementById('nextBtn').textContent = 'Далее';
+                document.getElementById('nextBtn').classList.remove('finish-btn');
+            }
+            
+            // Показать контейнер теста, скрыть результаты
+            document.getElementById('testContainer').classList.remove('hidden');
+            document.getElementById('resultContainer').classList.add('hidden');
+        }
+
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestionIndex] = optionIndex;
+            
+            // Сброс выбора для всех вариантов
+            const options = document.querySelectorAll('.option');
+            options.forEach((opt, i) => {
+                opt.classList.remove('selected');
+                if (i === optionIndex) {
+                    opt.classList.add('selected');
+                }
+            });
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < testQuestions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
+            } else {
+                // Завершение теста
+                finishTest();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion(currentQuestionIndex);
+            }
+        }
+
+        function finishTest() {
+            // Вычисление результатов
+            let correctCount = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === testQuestions[index].correct) {
+                    correctCount++;
+                }
+            });
+            
+            const score = `${correctCount}/${testQuestions.length}`;
+            document.getElementById('score').textContent = score;
+            
+            // Определение сообщения в зависимости от результата
+            let message = "";
+            const percentage = (correctCount / testQuestions.length) * 100;
+            
+            if (percentage >= 90) {
+                message = "Отличный результат! Вы прекрасно разбираетесь в квадратных уравнениях!";
+            } else if (percentage >= 70) {
+                message = "Хороший результат! Вы хорошо усвоили тему.";
+            } else if (percentage >= 50) {
+                message = "Удовлетворительный результат. Рекомендуется повторить тему.";
+            } else {
+                message = "Нужно повторить тему. Обратитесь к учебнику или учителю.";
+            }
+            
+            document.getElementById('resultMessage').textContent = message;
+            
+            // Показать результаты, скрыть вопросы
+            document.getElementById('testContainer').classList.add('hidden');
+            document.getElementById('resultContainer').classList.remove('hidden');
+            
+            testCompleted = true;
+        }
+
+        function backToMain() {
+            document.getElementById('landingScreen').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainScreen').style.display = 'flex';
+            document.getElementById('testScreen').style.display = 'none';
+            currentScreen = "main";
+        }
+
+        // Инициализация
+        window.onload = function() {
+            // Начальный экран уже показан
+        };
+    </script>
+</body>
+</html>
