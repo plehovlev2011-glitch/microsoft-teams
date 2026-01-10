@@ -9,13 +9,55 @@ $(function(){
     var down = 0;
     var timer = 0;
 
+    // Инициализация аудио
+    var clickSound = document.getElementById('clickSound');
+    
+    // Обработчики для кнопок
+    $('.styled-btn').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var link = $(this).data('link');
+        
+        // Воспроизведение звука
+        if (clickSound) {
+            clickSound.currentTime = 0;
+            clickSound.play().catch(function(error) {
+                console.log('Audio play failed:', error);
+            });
+        }
+        
+        // Анимация нажатия
+        $(this).addClass('clicked');
+        setTimeout(function() {
+            $(this).removeClass('clicked');
+        }.bind(this), 300);
+        
+        // Переход по ссылке с задержкой
+        setTimeout(function() {
+            if (link) {
+                // Проверяем, нужен ли протокол
+                if (link.startsWith('http') || link.startsWith('https')) {
+                    window.open(link, '_blank');
+                } else if (link.startsWith('t.me')) {
+                    window.open('https://' + link, '_blank');
+                } else {
+                    window.open('https://' + link, '_blank');
+                }
+            }
+        }, 200); // Задержка для звука
+    });
+
     $("html,body").scrollTop(0);
 
     $("img").width($(window).width());
 
-    $(window).on("click",function(){
-        if($(window).scrollTop() == 0){
-            $("html,body").animate({"scrollTop":$(".viewport").height()})
+    $(window).on("click",function(e){
+        // Проверяем, не кликнули ли по кнопке
+        if ($(e.target).closest('.styled-btn').length === 0) {
+            if($(window).scrollTop() == 0){
+                $("html,body").animate({"scrollTop":$(".viewport").height()})
+            }
         }
     })
 
