@@ -141,18 +141,4 @@ $(function(){
             $(".page.a").removeClass("a").next().addClass("a");
         }
     }
-
-    // Email form interactions
-    $("#subscribe-form input").on("click",function(e){
-        $(this).val("");
-        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-            $("img").hide();
-        }
-    });
-    
-    $("input.email").on("focusout",function(e){
-        if($(this).val() === "") {
-            $(this).val("Email Address");
-        }
-    });
 });
