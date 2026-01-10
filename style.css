@@ -1,3 +1,11 @@
+/* Подключение шрифта Arial Narrow */
+@font-face {
+    font-family: 'Arial Narrow';
+    src: url('111.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 *{
     margin:0;
     padding:0;
@@ -6,7 +14,7 @@
 
 html,body{
     width:100%;
-    font-family: arial;
+    font-family: 'Arial Narrow', Arial, sans-serif;
     font-weight:bold;
     background:hsl(0,0%,5%);
     color:white;
@@ -38,7 +46,7 @@ a{
 
 input,.button{
     background:none;
-    font-family: arial;
+    font-family: 'Arial Narrow', Arial, sans-serif;
     font-size:14px;
     text-transform: uppercase;
     font-weight:bold;
@@ -82,56 +90,112 @@ img{
     display: block;
 }
 
-/* Стили для кнопок */
+/* Стили для кнопок на второй странице */
 .buttons-container {
-    position: absolute;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
-    gap: 30px;
-    z-index: 10;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
     width: 90%;
-    max-width: 1200px;
-    justify-content: center;
-    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .styled-btn {
     position: relative;
-    width: 350px;
+    width: 500px;
     height: 120px;
+    background: white;
     border: none;
-    background: transparent;
     cursor: pointer;
     padding: 0;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 8px;
-    transform-style: preserve-3d;
-    perspective: 1000px;
+    transform: translateZ(0);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .styled-btn:hover {
-    transform: translateY(-5px) scale(1.02);
+    transform: translateZ(0) translateY(-8px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .styled-btn:active {
-    transform: translateY(2px) scale(0.98);
+    transform: translateZ(0) translateY(-2px);
+    box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Светящийся эффект при наведении */
 .styled-btn::before {
     content: '';
     position: absolute;
-    top: 2px;
-    left: 2px;
-    right: 2px;
-    bottom: 2px;
-    background: rgba(0, 0, 0, 0.9);
-    border-radius: 6px;
-    z-index: 1;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        rgba(255,255,255,0.8) 0%,
+        rgba(255,255,255,0.4) 25%,
+        rgba(255,255,255,0.2) 50%,
+        rgba(255,255,255,0.4) 75%,
+        rgba(255,255,255,0.8) 100%
+    );
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: inherit;
 }
 
+.styled-btn:hover::before {
+    opacity: 1;
+    animation: shine 1.5s infinite linear;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Эффект клика */
+.styled-btn.clicked {
+    animation: clickEffect 0.3s ease-out;
+}
+
+@keyframes clickEffect {
+    0% { transform: translateZ(0) scale(1); }
+    50% { transform: translateZ(0) scale(0.95); }
+    100% { transform: translateZ(0) scale(1); }
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: black;
+    display: block;
+    line-height: 120px;
+    transition: all 0.3s;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+.styled-btn:hover .btn-text {
+    letter-spacing: 10px;
+    text-shadow: 
+        3px 3px 0px rgba(0,0,0,0.15),
+        0 0 20px rgba(0,0,0,0.1);
+}
+
+/* Фоновый паттерн для текстуры */
 .styled-btn::after {
     content: '';
     position: absolute;
@@ -139,201 +203,75 @@ img{
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-        45deg,
-        transparent 25%,
-        rgba(255, 255, 255, 0.05) 25%,
-        rgba(255, 255, 255, 0.05) 50%,
-        transparent 50%,
-        transparent 75%,
-        rgba(255, 255, 255, 0.05) 75%
-    );
-    background-size: 10px 10px;
-    border-radius: 8px;
-    z-index: 0;
+    background-image: 
+        linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(0,0,0,0.03) 50%, 
+            transparent 100%),
+        linear-gradient(0deg, 
+            transparent 0%, 
+            rgba(0,0,0,0.03) 50%, 
+            transparent 100%);
+    background-size: 20px 20px;
+    mix-blend-mode: multiply;
     opacity: 0.5;
-}
-
-.btn-pattern {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.1) 50%,
-        transparent 100%
-    );
-    border-radius: 8px;
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.styled-btn:hover .btn-pattern {
-    opacity: 1;
-    animation: pattern-shift 2s linear infinite;
-}
-
-.btn-glitch {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: inherit;
-    border-radius: 8px;
-    z-index: 3;
-    opacity: 0;
-    filter: blur(1px);
-    mix-blend-mode: overlay;
-}
-
-@keyframes pattern-shift {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-@keyframes glitch {
-    0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 2px); }
-    5% { clip-path: inset(92% 0 1% 0); transform: translate(-1px, 3px); }
-    10% { clip-path: inset(43% 0 1% 0); transform: translate(2px, 1px); }
-    15% { clip-path: inset(25% 0 58% 0); }
-    20% { clip-path: inset(54% 0 7% 0); }
-    100% { clip-path: inset(58% 0 43% 0); }
-}
-
-.styled-btn:active .btn-glitch {
-    animation: glitch 0.3s;
-    opacity: 0.7;
-}
-
-.btn-text {
-    position: relative;
-    z-index: 4;
-    font-family: 'Courier New', monospace;
-    font-size: 42px;
-    font-weight: 900;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: white;
-    text-shadow: 
-        0 0 10px currentColor,
-        0 0 20px currentColor,
-        0 0 30px currentColor;
-    display: block;
-    line-height: 1;
-    margin-bottom: 8px;
-}
-
-.btn-subtext {
-    position: relative;
-    z-index: 4;
-    font-family: 'Arial', sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
-    display: block;
-    line-height: 1;
-}
-
-/* Цветовые схемы для кнопок */
-.telegram-btn {
-    --btn-color: #0088cc;
-    border: 3px solid var(--btn-color);
-    box-shadow: 
-        0 0 20px rgba(0, 136, 204, 0.3),
-        0 0 40px rgba(0, 136, 204, 0.1),
-        inset 0 0 20px rgba(0, 136, 204, 0.2);
-}
-
-.telegram-btn .btn-text {
-    color: var(--btn-color);
-}
-
-.avito-btn {
-    --btn-color: #ff5a00;
-    border: 3px solid var(--btn-color);
-    box-shadow: 
-        0 0 20px rgba(255, 90, 0, 0.3),
-        0 0 40px rgba(255, 90, 0, 0.1),
-        inset 0 0 20px rgba(255, 90, 0, 0.2);
-}
-
-.avito-btn .btn-text {
-    color: var(--btn-color);
-}
-
-.market-btn {
-    --btn-color: #00d4aa;
-    border: 3px solid var(--btn-color);
-    box-shadow: 
-        0 0 20px rgba(0, 212, 170, 0.3),
-        0 0 40px rgba(0, 212, 170, 0.1),
-        inset 0 0 20px rgba(0, 212, 170, 0.2);
-}
-
-.market-btn .btn-text {
-    color: var(--btn-color);
+    pointer-events: none;
 }
 
 /* Адаптивность */
-@media screen and (max-width: 1200px) {
-    .buttons-container {
-        gap: 20px;
-    }
-    
-    .styled-btn {
-        width: 300px;
-        height: 100px;
-    }
-    
-    .btn-text {
-        font-size: 36px;
-    }
-}
-
 @media screen and (max-width: 768px) {
     .buttons-container {
-        bottom: 60px;
-        gap: 15px;
-        flex-direction: column;
-        align-items: center;
+        gap: 30px;
+        width: 95%;
     }
     
     .styled-btn {
-        width: 280px;
+        width: 350px;
         height: 90px;
     }
     
     .btn-text {
-        font-size: 32px;
-        letter-spacing: 3px;
+        font-size: 42px;
+        letter-spacing: 5px;
+        line-height: 90px;
     }
     
-    .btn-subtext {
-        font-size: 12px;
-        letter-spacing: 4px;
+    .styled-btn:hover .btn-text {
+        letter-spacing: 6px;
     }
 }
 
 @media screen and (max-width: 480px) {
     .buttons-container {
-        bottom: 40px;
+        gap: 25px;
     }
     
     .styled-btn {
-        width: 250px;
-        height: 80px;
+        width: 280px;
+        height: 75px;
     }
     
     .btn-text {
-        font-size: 28px;
+        font-size: 36px;
+        letter-spacing: 3px;
+        line-height: 75px;
+    }
+    
+    .styled-btn:hover .btn-text {
+        letter-spacing: 4px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .styled-btn {
+        width: 250px;
+        height: 65px;
+    }
+    
+    .btn-text {
+        font-size: 32px;
         letter-spacing: 2px;
+        line-height: 65px;
     }
 }
 
@@ -352,6 +290,7 @@ p,li,input{
     font-size:14px;
     letter-spacing: 0.03em;
     text-transform: uppercase;
+    font-family: 'Arial Narrow', Arial, sans-serif;
 }
 
 @media screen and (max-width:650px){
