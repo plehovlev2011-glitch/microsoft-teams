@@ -10,9 +10,32 @@
 </head>
 <body class="b">
     <div class="viewport">
-        <!-- Замените эти 2 изображения на свои (img1.png, img2.png) -->
         <img src="_assets/01.jpg" alt="Background 1">
         <img src="_assets/02.jpg" alt="Background 2" style="display:none;">
+
+        <!-- Контейнер для кнопок -->
+        <div class="buttons-container">
+            <button class="styled-btn telegram-btn" data-link="t.me/gild43">
+                <span class="btn-text">ТЕЛЕГА</span>
+                <span class="btn-subtext">TELEGRAM</span>
+                <div class="btn-pattern"></div>
+                <div class="btn-glitch"></div>
+            </button>
+            
+            <button class="styled-btn avito-btn" data-link="https://www.avito.ru/brands/e2b2f447d966a98988018968bcb63102/all?src=sharing&clckid=39cb005c&sellerId=e2b2f447d966a98988018968bcb63102">
+                <span class="btn-text">АВИТО</span>
+                <span class="btn-subtext">AVITO</span>
+                <div class="btn-pattern"></div>
+                <div class="btn-glitch"></div>
+            </button>
+            
+            <button class="styled-btn market-btn" data-link="gild43shop1.tilda.ws">
+                <span class="btn-text">МАРКЕТ</span>
+                <span class="btn-subtext">MARKET</span>
+                <div class="btn-pattern"></div>
+                <div class="btn-glitch"></div>
+            </button>
+        </div>
 
         <div class="pages">
             <div class="page a">
@@ -36,6 +59,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Аудио для клика -->
+    <audio id="clickSound" preload="auto">
+        <source src="sounds/click.mp3" type="audio/mpeg">
+    </audio>
 
     <script src="scripts.js"></script>
 </body>
