@@ -90,86 +90,49 @@ img{
     display: block;
 }
 
-/* Стили для кнопок на второй странице */
+/* Стили для кнопок на второй странице - УПРОЩЕННЫЕ */
 .buttons-container {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 20px;
     align-items: center;
-    width: 90%;
-    max-width: 800px;
+    width: auto;
     margin: 0 auto;
 }
 
 .styled-btn {
     position: relative;
-    width: 500px;
-    height: 120px;
+    width: 180px;
+    height: 45px;
     background: white;
     border: none;
     cursor: pointer;
     padding: 0;
+    margin: 0;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
     transform: translateZ(0);
-    box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.3),
-        0 5px 15px rgba(0, 0, 0, 0.2);
+    line-height: 0;
 }
 
 .styled-btn:hover {
-    transform: translateZ(0) translateY(-8px);
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        0 10px 20px rgba(0, 0, 0, 0.3);
+    transform: translateZ(0) translateY(-2px);
+    background: #f5f5f5;
 }
 
 .styled-btn:active {
-    transform: translateZ(0) translateY(-2px);
-    box-shadow: 
-        0 5px 15px rgba(0, 0, 0, 0.3),
-        0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Светящийся эффект при наведении */
-.styled-btn::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, 
-        rgba(255,255,255,0.8) 0%,
-        rgba(255,255,255,0.4) 25%,
-        rgba(255,255,255,0.2) 50%,
-        rgba(255,255,255,0.4) 75%,
-        rgba(255,255,255,0.8) 100%
-    );
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s;
-    border-radius: inherit;
-}
-
-.styled-btn:hover::before {
-    opacity: 1;
-    animation: shine 1.5s infinite linear;
-}
-
-@keyframes shine {
-    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    transform: translateZ(0) translateY(0);
+    background: #e0e0e0;
 }
 
 /* Эффект клика */
 .styled-btn.clicked {
-    animation: clickEffect 0.3s ease-out;
+    animation: clickEffect 0.15s ease-out;
 }
 
 @keyframes clickEffect {
     0% { transform: translateZ(0) scale(1); }
-    50% { transform: translateZ(0) scale(0.95); }
+    50% { transform: translateZ(0) scale(0.97); }
     100% { transform: translateZ(0) scale(1); }
 }
 
@@ -177,101 +140,73 @@ img{
     position: relative;
     z-index: 2;
     font-family: 'Arial Narrow', Arial, sans-serif;
-    font-size: 56px;
+    font-size: 24px;
     font-weight: 900;
-    letter-spacing: 8px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: black;
     display: block;
-    line-height: 120px;
-    transition: all 0.3s;
-    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    line-height: 45px;
+    height: 45px;
+    margin: 0;
+    padding: 0;
+    transition: all 0.2s;
 }
 
 .styled-btn:hover .btn-text {
-    letter-spacing: 10px;
-    text-shadow: 
-        3px 3px 0px rgba(0,0,0,0.15),
-        0 0 20px rgba(0,0,0,0.1);
-}
-
-/* Фоновый паттерн для текстуры */
-.styled-btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        linear-gradient(90deg, 
-            transparent 0%, 
-            rgba(0,0,0,0.03) 50%, 
-            transparent 100%),
-        linear-gradient(0deg, 
-            transparent 0%, 
-            rgba(0,0,0,0.03) 50%, 
-            transparent 100%);
-    background-size: 20px 20px;
-    mix-blend-mode: multiply;
-    opacity: 0.5;
-    pointer-events: none;
+    letter-spacing: 3px;
 }
 
 /* Адаптивность */
 @media screen and (max-width: 768px) {
     .buttons-container {
-        gap: 30px;
-        width: 95%;
+        gap: 15px;
     }
     
     .styled-btn {
-        width: 350px;
-        height: 90px;
+        width: 160px;
+        height: 40px;
     }
     
     .btn-text {
-        font-size: 42px;
-        letter-spacing: 5px;
-        line-height: 90px;
-    }
-    
-    .styled-btn:hover .btn-text {
-        letter-spacing: 6px;
+        font-size: 22px;
+        line-height: 40px;
+        height: 40px;
     }
 }
 
 @media screen and (max-width: 480px) {
     .buttons-container {
-        gap: 25px;
+        gap: 12px;
     }
     
     .styled-btn {
-        width: 280px;
-        height: 75px;
+        width: 140px;
+        height: 35px;
     }
     
     .btn-text {
-        font-size: 36px;
-        letter-spacing: 3px;
-        line-height: 75px;
+        font-size: 20px;
+        line-height: 35px;
+        height: 35px;
+        letter-spacing: 1px;
     }
     
     .styled-btn:hover .btn-text {
-        letter-spacing: 4px;
+        letter-spacing: 2px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .styled-btn {
-        width: 250px;
-        height: 65px;
+        width: 130px;
+        height: 32px;
     }
     
     .btn-text {
-        font-size: 32px;
-        letter-spacing: 2px;
-        line-height: 65px;
+        font-size: 18px;
+        line-height: 32px;
+        height: 32px;
     }
 }
 
