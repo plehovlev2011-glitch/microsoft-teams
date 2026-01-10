@@ -82,6 +82,261 @@ img{
     display: block;
 }
 
+/* Стили для кнопок */
+.buttons-container {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+    z-index: 10;
+    width: 90%;
+    max-width: 1200px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.styled-btn {
+    position: relative;
+    width: 350px;
+    height: 120px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 8px;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.styled-btn:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+.styled-btn:active {
+    transform: translateY(2px) scale(0.98);
+}
+
+.styled-btn::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 6px;
+    z-index: 1;
+}
+
+.styled-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.05) 25%,
+        rgba(255, 255, 255, 0.05) 50%,
+        transparent 50%,
+        transparent 75%,
+        rgba(255, 255, 255, 0.05) 75%
+    );
+    background-size: 10px 10px;
+    border-radius: 8px;
+    z-index: 0;
+    opacity: 0.5;
+}
+
+.btn-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+    );
+    border-radius: 8px;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.styled-btn:hover .btn-pattern {
+    opacity: 1;
+    animation: pattern-shift 2s linear infinite;
+}
+
+.btn-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    border-radius: 8px;
+    z-index: 3;
+    opacity: 0;
+    filter: blur(1px);
+    mix-blend-mode: overlay;
+}
+
+@keyframes pattern-shift {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes glitch {
+    0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 2px); }
+    5% { clip-path: inset(92% 0 1% 0); transform: translate(-1px, 3px); }
+    10% { clip-path: inset(43% 0 1% 0); transform: translate(2px, 1px); }
+    15% { clip-path: inset(25% 0 58% 0); }
+    20% { clip-path: inset(54% 0 7% 0); }
+    100% { clip-path: inset(58% 0 43% 0); }
+}
+
+.styled-btn:active .btn-glitch {
+    animation: glitch 0.3s;
+    opacity: 0.7;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 4;
+    font-family: 'Courier New', monospace;
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 30px currentColor;
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.btn-subtext {
+    position: relative;
+    z-index: 4;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    display: block;
+    line-height: 1;
+}
+
+/* Цветовые схемы для кнопок */
+.telegram-btn {
+    --btn-color: #0088cc;
+    border: 3px solid var(--btn-color);
+    box-shadow: 
+        0 0 20px rgba(0, 136, 204, 0.3),
+        0 0 40px rgba(0, 136, 204, 0.1),
+        inset 0 0 20px rgba(0, 136, 204, 0.2);
+}
+
+.telegram-btn .btn-text {
+    color: var(--btn-color);
+}
+
+.avito-btn {
+    --btn-color: #ff5a00;
+    border: 3px solid var(--btn-color);
+    box-shadow: 
+        0 0 20px rgba(255, 90, 0, 0.3),
+        0 0 40px rgba(255, 90, 0, 0.1),
+        inset 0 0 20px rgba(255, 90, 0, 0.2);
+}
+
+.avito-btn .btn-text {
+    color: var(--btn-color);
+}
+
+.market-btn {
+    --btn-color: #00d4aa;
+    border: 3px solid var(--btn-color);
+    box-shadow: 
+        0 0 20px rgba(0, 212, 170, 0.3),
+        0 0 40px rgba(0, 212, 170, 0.1),
+        inset 0 0 20px rgba(0, 212, 170, 0.2);
+}
+
+.market-btn .btn-text {
+    color: var(--btn-color);
+}
+
+/* Адаптивность */
+@media screen and (max-width: 1200px) {
+    .buttons-container {
+        gap: 20px;
+    }
+    
+    .styled-btn {
+        width: 300px;
+        height: 100px;
+    }
+    
+    .btn-text {
+        font-size: 36px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .buttons-container {
+        bottom: 60px;
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .styled-btn {
+        width: 280px;
+        height: 90px;
+    }
+    
+    .btn-text {
+        font-size: 32px;
+        letter-spacing: 3px;
+    }
+    
+    .btn-subtext {
+        font-size: 12px;
+        letter-spacing: 4px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .buttons-container {
+        bottom: 40px;
+    }
+    
+    .styled-btn {
+        width: 250px;
+        height: 80px;
+    }
+    
+    .btn-text {
+        font-size: 28px;
+        letter-spacing: 2px;
+    }
+}
+
 center{
     position:absolute;
     top:50%;
