@@ -1,1 +1,429 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title></title><style>*{margin:0;padding:0;box-sizing:border-box;user-select:none}body{min-height:100vh;background:#FFFFFF;overflow:hidden;position:relative}.rainbow-frame{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:9999}.frame-piece{position:absolute;background:linear-gradient(135deg,#ff99cc,#ffcc99,#ffff99,#99ffcc,#99ccff,#cc99ff,#ff99cc);background-size:400% 400%;opacity:0;filter:blur(140px) drop-shadow(0 0 90px rgba(255,255,255,0.95));will-change:transform,width,height,opacity;box-shadow:0 0 100px rgba(255,200,200,0.8)}.tl-horiz,.tr-horiz,.bl-horiz,.br-horiz{height:42px}.tl-vert,.tr-vert,.bl-vert,.br-vert{width:42px}.tl-horiz{position:absolute;top:0;left:0;height:42px;width:0;background:linear-gradient(90deg,#ff99cc,#ffcc99,#ffff99,#99ffcc,#99ccff,#cc99ff,#ff99cc);background-size:800% 100%;transform-origin:left center;border-radius:0 80px 80px 0}.tl-vert{position:absolute;top:0;left:0;width:42px;height:0;background:linear-gradient(180deg,#ff99cc,#ffcc99,#ffff99,#99ffcc,#99ccff,#cc99ff,#ff99cc);background-size:100% 800%;transform-origin:top center;border-radius:0 0 80px 0}.tr-horiz{position:absolute;top:0;right:0;height:42px;width:0;background:linear-gradient(270deg,#ff99cc,#ffcc99,#ffff99,#99ffcc,#99ccff,#cc99ff,#ff99cc);background-size:800% 100%;transform-origin:right center;border-radius:80px 0 0 80px}.tr-vert{position:absolute;top:0;right:0;width:42px;height:0;background:linear-gradient(180deg,#ff99cc,#ffcc99,#ffff99,#99ffcc,#99ccff,#cc99ff,#ff99cc);background-size:100% 800%;transform-origin:top center;border-radius:0 0 0 80px}.bl-horiz{position:absolute;bottom:0;left:0;height:42px;width:0;background:linear-gradient(90deg,#ff99cc,#ffcc99,#ffff99,#99ffcc,#99ccff,#cc99ff,#ff99cc);background-size:800% 100%;transform-origin:left center;border-radius:0 80px 80px 0}.bl-vert{position:absolute;bottom:0;left:0;width:42px;height:0;background:linear-gradient(270deg,#ff99cc,#ffcc99,#ffff99,#99ffcc,#99ccff,#cc99ff,#ff99cc);background-size:100% 800%;transform-origin:bottom center;border-radius:0 80px 0 0}.br-horiz{position:absolute;bottom:0;right:0;height:42px;width:0;background:linear-gradient(270deg,#ff99cc,#ffcc99,#ffff99,#99ffcc,#99ccff,#cc99ff,#ff99cc);background-size:800% 100%;transform-origin:right center;border-radius:80px 0 0 80px}.br-vert{position:absolute;bottom:0;right:0;width:42px;height:0;background:linear-gradient(360deg,#ff99cc,#ffcc99,#ffff99,#99ffcc,#99ccff,#cc99ff,#ff99cc);background-size:100% 800%;transform-origin:bottom center;border-radius:80px 0 0 0}@keyframes shootHorizTL{0%{width:0;opacity:0}4%{opacity:1}18%{width:45vw;opacity:1}45%{width:85vw;opacity:1}100%{width:140vw;opacity:1}}@keyframes shootVertTL{0%{height:0;opacity:0}4%{opacity:1}18%{height:45vh;opacity:1}45%{height:85vh;opacity:1}100%{height:140vh;opacity:1}}@keyframes shootHorizTR{0%{width:0;opacity:0}4%{opacity:1}18%{width:45vw;opacity:1}45%{width:85vw;opacity:1}100%{width:140vw;opacity:1}}@keyframes shootVertTR{0%{height:0;opacity:0}4%{opacity:1}18%{height:45vh;opacity:1}45%{height:85vh;opacity:1}100%{height:140vh;opacity:1}}@keyframes shootHorizBL{0%{width:0;opacity:0}4%{opacity:1}18%{width:45vw;opacity:1}45%{width:85vw;opacity:1}100%{width:140vw;opacity:1}}@keyframes shootVertBL{0%{height:0;opacity:0}4%{opacity:1}18%{height:45vh;opacity:1}45%{height:85vh;opacity:1}100%{height:140vh;opacity:1}}@keyframes shootHorizBR{0%{width:0;opacity:0}4%{opacity:1}18%{width:45vw;opacity:1}45%{width:85vw;opacity:1}100%{width:140vw;opacity:1}}@keyframes shootVertBR{0%{height:0;opacity:0}4%{opacity:1}18%{height:45vh;opacity:1}45%{height:85vh;opacity:1}100%{height:140vh;opacity:1}}@keyframes rainbowButterSoft{0%{background-position:0% 50%;filter:blur(140px) drop-shadow(0 0 80px rgba(255,200,200,0.7))}10%{background-position:10% 50%;filter:blur(145px) drop-shadow(0 0 85px rgba(255,220,180,0.75))}20%{background-position:20% 50%;filter:blur(138px) drop-shadow(0 0 78px rgba(255,255,180,0.8))}30%{background-position:30% 50%;filter:blur(142px) drop-shadow(0 0 82px rgba(200,255,200,0.75))}40%{background-position:40% 50%;filter:blur(146px) drop-shadow(0 0 88px rgba(180,220,255,0.8))}50%{background-position:50% 50%;filter:blur(140px) drop-shadow(0 0 80px rgba(220,180,255,0.8))}60%{background-position:60% 50%;filter:blur(144px) drop-shadow(0 0 84px rgba(255,200,220,0.75))}70%{background-position:70% 50%;filter:blur(139px) drop-shadow(0 0 79px rgba(255,240,160,0.8))}80%{background-position:80% 50%;filter:blur(143px) drop-shadow(0 0 83px rgba(160,255,200,0.75))}90%{background-position:90% 50%;filter:blur(147px) drop-shadow(0 0 87px rgba(200,200,255,0.8))}100%{background-position:100% 50%;filter:blur(140px) drop-shadow(0 0 80px rgba(255,200,200,0.7))}}@keyframes rainbowButterSoftVertical{0%{background-position:0% 0%;filter:blur(140px) drop-shadow(0 0 80px rgba(255,200,200,0.7))}10%{background-position:0% 10%;filter:blur(145px) drop-shadow(0 0 85px rgba(255,220,180,0.75))}20%{background-position:0% 20%;filter:blur(138px) drop-shadow(0 0 78px rgba(255,255,180,0.8))}30%{background-position:0% 30%;filter:blur(142px) drop-shadow(0 0 82px rgba(200,255,200,0.75))}40%{background-position:0% 40%;filter:blur(146px) drop-shadow(0 0 88px rgba(180,220,255,0.8))}50%{background-position:0% 50%;filter:blur(140px) drop-shadow(0 0 80px rgba(220,180,255,0.8))}60%{background-position:0% 60%;filter:blur(144px) drop-shadow(0 0 84px rgba(255,200,220,0.75))}70%{background-position:0% 70%;filter:blur(139px) drop-shadow(0 0 79px rgba(255,240,160,0.8))}80%{background-position:0% 80%;filter:blur(143px) drop-shadow(0 0 83px rgba(160,255,200,0.75))}90%{background-position:0% 90%;filter:blur(147px) drop-shadow(0 0 87px rgba(200,200,255,0.8))}100%{background-position:0% 100%;filter:blur(140px) drop-shadow(0 0 80px rgba(255,200,200,0.7))}}@keyframes vanishFrame{0%{opacity:1;filter:blur(140px) drop-shadow(0 0 90px rgba(255,255,255,0.9))}100%{opacity:0;filter:blur(190px);visibility:hidden}}.animate .tl-horiz{animation:shootHorizTL 0.85s cubic-bezier(0.03,0.98,0.2,1.2) forwards,rainbowButterSoft 5s infinite ease-in-out;animation-iteration-count:1,infinite}.animate .tl-vert{animation:shootVertTL 0.85s cubic-bezier(0.03,0.98,0.2,1.2) forwards,rainbowButterSoftVertical 5s infinite ease-in-out;animation-iteration-count:1,infinite}.animate .tr-horiz{animation:shootHorizTR 0.85s cubic-bezier(0.03,0.98,0.2,1.2) forwards,rainbowButterSoft 5s infinite ease-in-out;animation-iteration-count:1,infinite}.animate .tr-vert{animation:shootVertTR 0.85s cubic-bezier(0.03,0.98,0.2,1.2) forwards,rainbowButterSoftVertical 5s infinite ease-in-out;animation-iteration-count:1,infinite}.animate .bl-horiz{animation:shootHorizBL 0.85s cubic-bezier(0.03,0.98,0.2,1.2) forwards,rainbowButterSoft 5s infinite ease-in-out;animation-iteration-count:1,infinite}.animate .bl-vert{animation:shootVertBL 0.85s cubic-bezier(0.03,0.98,0.2,1.2) forwards,rainbowButterSoftVertical 5s infinite ease-in-out;animation-iteration-count:1,infinite}.animate .br-horiz{animation:shootHorizBR 0.85s cubic-bezier(0.03,0.98,0.2,1.2) forwards,rainbowButterSoft 5s infinite ease-in-out;animation-iteration-count:1,infinite}.animate .br-vert{animation:shootVertBR 0.85s cubic-bezier(0.03,0.98,0.2,1.2) forwards,rainbowButterSoftVertical 5s infinite ease-in-out;animation-iteration-count:1,infinite}.fade-out .tl-horiz,.fade-out .tl-vert,.fade-out .tr-horiz,.fade-out .tr-vert,.fade-out .bl-horiz,.fade-out .bl-vert,.fade-out .br-horiz,.fade-out .br-vert{animation:vanishFrame 0.8s forwards !important}</style></head><body><div class="rainbow-frame" id="rainbowFrame"><div class="tl-horiz frame-piece"></div><div class="tl-vert frame-piece"></div><div class="tr-horiz frame-piece"></div><div class="tr-vert frame-piece"></div><div class="bl-horiz frame-piece"></div><div class="bl-vert frame-piece"></div><div class="br-horiz frame-piece"></div><div class="br-vert frame-piece"></div></div><script>(function(){const e=document.getElementById('rainbowFrame'),t=5000,a=850,n=3350,o=800;function s(){e.classList.add('animate');const r=document.createElement('style');r.id='dynamic-timing';r.textContent=`.animate .tl-horiz,.animate .tl-vert,.animate .tr-horiz,.animate .tr-vert,.animate .bl-horiz,.animate .bl-vert,.animate .br-horiz,.animate .br-vert{animation-duration:${a}ms,5s !important}`;document.head.appendChild(r);setTimeout(()=>{e.classList.add('fade-out');const c=document.createElement('style');c.textContent=`.fade-out .tl-horiz,.fade-out .tl-vert,.fade-out .tr-horiz,.fade-out .tr-vert,.fade-out .bl-horiz,.fade-out .bl-vert,.fade-out .br-horiz,.fade-out .br-vert{animation:vanishFrame ${o}ms forwards !important}`;document.head.appendChild(c)},a+n);setTimeout(()=>{window.location.href='https://gemini.google.com'},t)}window.addEventListener('load',()=>{setTimeout(s,20)});if(document.readyState==='complete')setTimeout(s,20)})()</script></body></html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Gemini Live | Требуется iPhone 16 и новее</title>
+    <!-- Google Fonts: Google Sans (используем Product Sans как аналог, т.к. Google Sans закрыт, но стиль точно Material) -->
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Fallback для Google Sans — используем систему с близкими шрифтами -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f5f7; /* Soft grey background как в Material background */
+            font-family: 'Google Sans', 'Product Sans', 'Segoe UI', 'Roboto', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px 16px;
+        }
+
+        /* Material 3 Card + Elevation */
+        .m3-card {
+            max-width: 600px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.03);
+            transition: all 0.2s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* контентная область */
+        .card-content {
+            padding: 32px 28px 40px 28px;
+        }
+
+        /* типографика Material 3 */
+        .headline-large {
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: -0.2px;
+            line-height: 1.3;
+            color: #1e1e2f;
+            margin-bottom: 12px;
+        }
+
+        .body-medium {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #3c4043;
+            margin-bottom: 24px;
+        }
+
+        .body-small {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.4;
+            color: #5f6368;
+        }
+
+        .label-large {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.1px;
+            color: #1e1e2f;
+        }
+
+        /* Область QR-кода в центре */
+        .qr-container {
+            background: #ffffff;
+            border-radius: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 24px 0 28px 0;
+            padding: 8px;
+        }
+
+        .qr-wrapper {
+            background: #fff;
+            padding: 16px;
+            border-radius: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s;
+        }
+
+        canvas.qr-canvas {
+            display: block;
+            margin: 0 auto;
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+        }
+
+        /* кнопка обновить QR (Material Filled/Outlined стиль) */
+        .button-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid #dadce0;
+            border-radius: 40px;
+            padding: 10px 24px;
+            font-family: 'Google Sans', 'Product Sans', 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            color: #1967d2;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #ffffff;
+            margin-top: 8px;
+        }
+
+        .button-outline:hover {
+            background-color: #e8f0fe;
+            border-color: #c2e0ff;
+        }
+
+        .button-outline:active {
+            transform: scale(0.97);
+        }
+
+        /* ссылка apple store — стиль кнопки с заполнением */
+        .apple-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #1e1e2f;
+            color: white;
+            border: none;
+            border-radius: 44px;
+            padding: 14px 28px;
+            font-family: 'Google Sans', 'Product Sans', 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            gap: 12px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.1s;
+            margin-top: 16px;
+            width: 100%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .apple-button:hover {
+            background: #2c2c3a;
+        }
+
+        .apple-button:active {
+            transform: scale(0.98);
+        }
+
+        /* разделитель */
+        .divider {
+            height: 1px;
+            background: #ecedef;
+            margin: 28px 0 24px 0;
+        }
+
+        /* футер с мелким текстом */
+        .footnote {
+            font-size: 12px;
+            color: #80868b;
+            text-align: center;
+            margin-top: 28px;
+        }
+
+        /* Бейдж с Apple silicon / чип */
+        .badge-chip {
+            display: inline-flex;
+            align-items: center;
+            background: #f1f3f4;
+            border-radius: 32px;
+            padding: 6px 14px;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #174ea6;
+            margin-bottom: 20px;
+        }
+
+        /* Адаптив */
+        @media (max-width: 500px) {
+            .card-content {
+                padding: 24px 20px 32px 20px;
+            }
+            .headline-large {
+                font-size: 24px;
+            }
+            canvas.qr-canvas {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        .flex-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .icon-emblem {
+            font-size: 20px;
+        }
+    </style>
+    <!-- Используем библиотеку QRCode.js для генерации рандомного QR-кода -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <!-- Дополнительная библиотека для простой перегенерации с новыми данными (простой random string) -->
+</head>
+<body>
+<div class="m3-card">
+    <div class="card-content">
+        <!-- Бейдж с чипом Apple как акцент -->
+        <div class="flex-row">
+            <div class="badge-chip">
+                <span class="icon-emblem"></span> Требуется iPhone 16 или iPad с чипом M
+            </div>
+        </div>
+
+        <!-- Главный заголовок: "Продолжите на iPhone 16 и новее." -->
+        <div class="headline-large">
+            Продолжите на iPhone 16 и новее.
+        </div>
+
+        <!-- Описание про Gemini на ПК -->
+        <div class="body-medium">
+            Чтобы авторизоваться с Gemini на ПК, нужен iPhone 16 или iPad с чипом Apple. Покажите QR-код в приложении Gemini в режиме Live и подтвердите вход.
+        </div>
+
+        <!-- Генерируемый QR-код с рандомной сессией -->
+        <div class="qr-container">
+            <div class="qr-wrapper" id="qrCodeWrapper">
+                <!-- Здесь будет canvas с QR -->
+                <div id="qrcode"></div>
+            </div>
+        </div>
+
+        <!-- Кнопка для обновления / генерации нового случайного QR-кода (Material Outlined) -->
+        <div style="display: flex; justify-content: center;">
+            <button id="refreshQrBtn" class="button-outline">
+                <span></span> Сгенерировать новый QR-код
+            </button>
+        </div>
+
+        <!-- Пояснение про live режим -->
+        <div class="body-small" style="margin-top: 24px; text-align: center; background: #f8f9fa; padding: 12px 16px; border-radius: 24px;">
+             Откройте камеру iPhone или приложение Gemini → Live → отсканируйте код для мгновенной авторизации на ПК.
+        </div>
+
+        <!-- Разделитель -->
+        <div class="divider"></div>
+
+        <!-- Строка с предложением купить новейшую модель -->
+        <div class="body-medium" style="font-weight: 500; color: #202124; margin-bottom: 8px;">
+            Не iPhone 16 или iPad с чипом Apple?
+        </div>
+        <div class="body-small" style="margin-bottom: 20px;">
+            Купить в Apple новейшую модель! Только с чипом A18/A18 Pro или M4 — полноценная работа Gemini Live.
+        </div>
+
+        <!-- Ссылка на Apple Store (официальная страница) -->
+        <a href="https://www.apple.com/shop/buy-iphone/iphone-16" class="apple-button" target="_blank" rel="noopener noreferrer">
+            <span></span> Купить iPhone 16 или iPad с чипом Apple
+            <span>→</span>
+        </a>
+
+        <!-- Футтер / дисклеймер Material style -->
+        <div class="footnote">
+            * Для работы Gemini в режиме Live необходим iPhone 16, iPhone 16 Plus, iPhone 16 Pro, iPhone 16 Pro Max или iPad с чипом M2–M4. <br> 
+            QR-код генерируется случайным образом и симулирует сеанс входа.
+        </div>
+    </div>
+</div>
+
+<script>
+    // Функция для генерации случайной строки (уникальный токен / данные для QR)
+    // Для имитации рандомного QR-кода, который может быть прочитан приложением Gemini на iPhone.
+    // В реальной жизни это могла бы быть ссылка на авторизацию, но мы сделаем формат как "gemini://auth?session=...&random=..."
+    // Так будет выглядеть современно и логично для демо-рекламы.
+    function generateRandomSessionString() {
+        // Генерируем случайный ID с timestamp и рандомом, чтобы каждый QR был уникальным.
+        const randomBytes = () => Math.random().toString(36).substring(2, 12) + Math.random().toString(36).substring(2, 8);
+        const sessionPart = randomBytes() + Date.now().toString(36);
+        // Создаём структуру данных похожую на токен входа для Gemini Live
+        // Для достоверности: используем домен gemini.google.com/live-auth и параметр
+        return `https://gemini.google.com/live/connect?code=${sessionPart}&device=pc&v=m3&ts=${Date.now()}&random=${Math.floor(Math.random() * 1000000)}`;
+    }
+
+    // Переменная для хранения текущего QR объекта
+    let currentQRCode = null;
+    let currentDataString = "";
+
+    // Функция отрисовки QR-кода из текстовых данных
+    function renderQRCode(data) {
+        // Очищаем контейнер для QR
+        const qrContainer = document.getElementById('qrcode');
+        qrContainer.innerHTML = ''; // удаляем предыдущий canvas / элементы
+        
+        // Создаём новый QRCode (библиотека qrcodejs создаст <div> с <canvas> или таблицей, но у нее хорошее качество)
+        // Используем опции: размер 200, правильные поля
+        try {
+            // У Qrcode конструктор: new QRCode(element, text, width, height)
+            // Однако в библиотеке qrcodejs ожидается: new QRCode(element, {text: ..., width: ..., height: ...})
+            // Проверим API. В используемой CDN версии qrcodejs 1.0.0 - экспорт QRCode.
+            currentQRCode = new QRCode(qrContainer, {
+                text: data,
+                width: 200,
+                height: 200,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
+            });
+            // добавляем класс на canvas для стилей
+            const canvasElement = qrContainer.querySelector('canvas');
+            if (canvasElement) {
+                canvasElement.classList.add('qr-canvas');
+                canvasElement.setAttribute('aria-label', 'Динамический QR код для входа Gemini');
+            }
+        } catch (err) {
+            console.warn("QR generation fallback", err);
+            // резервный вариант: показать текст
+            qrContainer.innerHTML = `<div style="padding:20px; text-align:center;">⚠️ Не удалось сгенерировать QR, но код: <br> <small>${data.substring(0, 60)}...</small></div>`;
+        }
+    }
+
+    // Функция генерации нового случайного QR (обновляет глобальное состояние)
+    function generateNewRandomQR() {
+        const newSessionLink = generateRandomSessionString();
+        currentDataString = newSessionLink;
+        renderQRCode(currentDataString);
+        // Можно добавить небольшую анимацию уведомления (опционально)
+        const btn = document.getElementById('refreshQrBtn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span></span> Новый код создан!';
+        setTimeout(() => {
+            if (btn) btn.innerHTML = originalText;
+        }, 1200);
+        console.log("Новый QR сгенерирован:", currentDataString);
+    }
+
+    // Инициализация при загрузке страницы — генерируем уникальный рандомный QR-код.
+    function initializePage() {
+        // Первоначальный рандомный QR
+        generateNewRandomQR();
+
+        // Добавляем слушатель на кнопку обновления
+        const refreshBtn = document.getElementById('refreshQrBtn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                generateNewRandomQR();
+                // Эффект ripple (имитация material design ripple minimal)
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.backgroundColor = 'rgba(25,103,210,0.3)';
+                ripple.style.width = '40px';
+                ripple.style.height = '40px';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.pointerEvents = 'none';
+                const rect = refreshBtn.getBoundingClientRect();
+                ripple.style.left = `${e.clientX - rect.left - 20}px`;
+                ripple.style.top = `${e.clientY - rect.top - 20}px`;
+                ripple.style.transition = 'transform 0.4s, opacity 0.3s';
+                refreshBtn.style.position = 'relative';
+                refreshBtn.style.overflow = 'hidden';
+                refreshBtn.appendChild(ripple);
+                setTimeout(() => {
+                    ripple.style.transform = 'scale(8)';
+                    ripple.style.opacity = '0';
+                    setTimeout(() => ripple.remove(), 400);
+                }, 10);
+            });
+        }
+    }
+
+    // дополнительная обработка для ссылки — открывать с параметрами utm (просто для соответствия рекламе)
+    // но уже ссылка на официальный apple store корректна.
+
+    // Запуск инициализации после полной загрузки DOM
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializePage);
+    } else {
+        initializePage();
+    }
+
+    // Также обеспечиваем дружественный UX: при клике на QR-код показываем всплывающее уведомление, что это динамический код для Gemini.
+    document.addEventListener('click', function(e) {
+        const qrWrapper = document.querySelector('.qr-wrapper');
+        if (qrWrapper && (qrWrapper.contains(e.target) || e.target.closest('.qr-wrapper'))) {
+            // просто для информативности
+            const toast = document.createElement('div');
+            toast.innerText = 'QR динамический: отсканируйте в приложении Gemini Live на iPhone 16';
+            toast.style.position = 'fixed';
+            toast.style.bottom = '30px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = '#1f1f2e';
+            toast.style.color = 'white';
+            toast.style.fontFamily = "'Google Sans', system-ui";
+            toast.style.fontSize = '14px';
+            toast.style.padding = '10px 20px';
+            toast.style.borderRadius = '100px';
+            toast.style.zIndex = '1000';
+            toast.style.backdropFilter = 'blur(12px)';
+            toast.style.background = 'rgba(30,30,47,0.9)';
+            toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
+        }
+    });
+</script>
+
+<!-- Примечание для безопасности: QR генерирует ссылку вида gemini.google.com, чтобы симулировать рабочий процесс. 
+     Дополнительно: для максимальной реалистичности каждый раз новый токен. В реальном сценарии сервер бы проверял. 
+     Также убедитесь что шрифты Google Sans подхватываются: используем 'Google Sans' и системный fallback. -->
+</body>
+</html>
