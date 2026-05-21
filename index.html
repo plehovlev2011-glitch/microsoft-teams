@@ -49,9 +49,6 @@
             transition: opacity 0.5s ease-in-out;
             pointer-events: none;
         }
-        .white-overlay.hidden {
-            opacity: 0;
-        }
     </style>
 </head>
 <body>
@@ -67,46 +64,43 @@
         const videoContainer = document.getElementById('videoContainer');
         const video = document.getElementById('mainVideo');
         let redirectTriggered = false;
+        let videoEnded = false;
         function redirectToGemini() {
             if (redirectTriggered) return;
             redirectTriggered = true;
             window.location.replace('https://gemini.google.com');
         }
         function startVideoFadeIn() {
+            videoContainer.style.transition = 'opacity 0.5s ease-in-out';
             videoContainer.style.opacity = '0';
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    requestAnimationFrame(() => {
-                        videoContainer.style.opacity = '1';
-                    });
-                }).catch(() => {
-                    video.muted = true;
-                    video.play().then(() => {
-                        videoContainer.style.opacity = '1';
-                    }).catch(() => {
-                        videoContainer.style.opacity = '1';
-                    });
-                });
-            } else {
+            video.currentTime = 0;
+            video.play().then(() => {
                 videoContainer.style.opacity = '1';
-                video.play().catch(() => {});
-            }
+            }).catch(() => {
+                video.muted = true;
+                video.play().then(() => {
+                    videoContainer.style.opacity = '1';
+                }).catch(() => {
+                    videoContainer.style.opacity = '1';
+                });
+            });
             video.removeEventListener('ended', redirectToGemini);
             video.addEventListener('ended', function onEnded() {
-                redirectToGemini();
+                if (!videoEnded) {
+                    videoEnded = true;
+                    redirectToGemini();
+                }
             });
         }
-        function startSequence() {
-            whiteOverlay.style.opacity = '1';
-            whiteOverlay.classList.remove('hidden');
-            setTimeout(() => {
-                whiteOverlay.classList.add('hidden');
-                setTimeout(() => {
-                    startVideoFadeIn();
-                }, 500);
-            }, 600);
-        }
+        whiteOverlay.style.transition = 'opacity 0.5s ease-in-out';
+        whiteOverlay.style.opacity = '1';
+        setTimeout(function() {
+            whiteOverlay.style.opacity = '0';
+            setTimeout(function() {
+                whiteOverlay.style.display = 'none';
+                startVideoFadeIn();
+            }, 500);
+        }, 600);
         video.controls = false;
         video.disableRemotePlayback = true;
         video.setAttribute('controlslist', 'nodownload');
@@ -114,22 +108,11 @@
         video.removeAttribute('autoplay');
         video.pause();
         video.currentTime = 0;
-        window.addEventListener('load', function() {
-            startSequence();
-        });
         video.addEventListener('contextmenu', function(e) {
             e.preventDefault();
             return false;
         });
         video.style.webkitTouchCallout = 'none';
-        if (video.readyState >= 4 && video.currentTime >= video.duration) {
-            redirectToGemini();
-        }
-        setTimeout(function() {
-            if (video.currentTime >= video.duration - 0.1 && video.duration !== Infinity && !redirectTriggered) {
-                redirectToGemini();
-            }
-        }, 100);
     })();
 </script>
 </body>
