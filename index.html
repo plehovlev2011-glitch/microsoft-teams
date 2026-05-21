@@ -46,7 +46,7 @@
             background-color: white;
             z-index: 10;
             opacity: 1;
-            transition: opacity 0.6s ease-in-out;
+            transition: opacity 0.5s ease-in-out;
             pointer-events: none;
         }
         .white-overlay.hidden {
@@ -97,12 +97,14 @@
                 redirectToGemini();
             });
         }
-        function startFadeToBlack() {
+        function startSequence() {
+            whiteOverlay.style.opacity = '1';
+            whiteOverlay.classList.remove('hidden');
             setTimeout(() => {
                 whiteOverlay.classList.add('hidden');
                 setTimeout(() => {
                     startVideoFadeIn();
-                }, 600);
+                }, 500);
             }, 600);
         }
         video.controls = false;
@@ -113,7 +115,7 @@
         video.pause();
         video.currentTime = 0;
         window.addEventListener('load', function() {
-            startFadeToBlack();
+            startSequence();
         });
         video.addEventListener('contextmenu', function(e) {
             e.preventDefault();
