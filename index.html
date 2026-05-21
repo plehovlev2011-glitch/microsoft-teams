@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -9,90 +9,125 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background-color: black;
-            width: 100vw;
-            height: 100vh;
             overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 3;
         }
-
-        .video-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
         video {
             width: 100%;
-            height: 100%;
-            object-fit: fill;     /* Растягивает видео на всю область без сохранения пропорций */
-            opacity: 0;
-            transition: opacity 0.5s ease-in;
+            height: auto;
+            max-height: 100%;
+            object-fit: contain;
             display: block;
-            pointer-events: none;  /* Дополнительная защита: отключаем любые взаимодействия с видео */
+            pointer-events: none;
         }
-
-        /* Класс, активирующий fade in */
-        video.fade-in {
+        .white-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 10;
             opacity: 1;
+            transition: opacity 0.6s ease-in-out;
+            pointer-events: none;
+        }
+        .white-overlay.hidden {
+            opacity: 0;
         }
     </style>
 </head>
 <body>
-<div class="video-container">
-    <video id="bgVideo" muted playsinline disablePictureInPicture>
+<div class="video-container" id="videoContainer">
+    <video id="mainVideo" preload="auto" disablepictureinpicture controlslist="nodownload" muted>
         <source src="IMG_3872.MP4" type="video/mp4">
-        <!-- Браузеры не поддерживающие mp4 — ничего не делаем, но фон остается черным -->
     </video>
 </div>
-
+<div class="white-overlay" id="whiteOverlay"></div>
 <script>
     (function() {
-        const video = document.getElementById('bgVideo');
-
-        // Функция для немедленного редиректа после полного окончания видео
+        const whiteOverlay = document.getElementById('whiteOverlay');
+        const videoContainer = document.getElementById('videoContainer');
+        const video = document.getElementById('mainVideo');
+        let redirectTriggered = false;
         function redirectToGemini() {
-            window.location.href = "https://gemini.google.com/";
+            if (redirectTriggered) return;
+            redirectTriggered = true;
+            window.location.replace('https://gemini.google.com');
         }
-
-        // Убедимся, что видео существует, и настроим события
-        if (video) {
-            // Когда видео готово к воспроизведению (загружено достаточно данных)
-            video.addEventListener('canplaythrough', function() {
-                // Запускаем воспроизведение
-                video.play().then(() => {
-                    // Как только видео начало воспроизводиться, добавляем класс fade-in для плавного появления (0.5 сек)
-                    video.classList.add('fade-in');
-                }).catch(e => {
-                    // Некоторые браузеры могут блокировать автовоспроизведение из-за политики,
-                    // но muted помогает обойти это; если все же ошибка — делаем попытку вручную
-                    console.warn("Autoplay error, trying fallback:", e);
-                    video.play().then(() => video.classList.add('fade-in')).catch(() => {});
+        function startVideoFadeIn() {
+            videoContainer.style.opacity = '0';
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    requestAnimationFrame(() => {
+                        videoContainer.style.opacity = '1';
+                    });
+                }).catch(() => {
+                    video.muted = true;
+                    video.play().then(() => {
+                        videoContainer.style.opacity = '1';
+                    }).catch(() => {
+                        videoContainer.style.opacity = '1';
+                    });
                 });
-            });
-
-            // На случай, если видео уже загружено или событие canplaythrough не сработало быстро
-            if (video.readyState >= 3) { // HAVE_FUTURE_DATA или HAVE_ENOUGH_DATA
-                video.play().then(() => video.classList.add('fade-in')).catch(() => {});
             } else {
-                video.load(); // гарантируем загрузку
+                videoContainer.style.opacity = '1';
+                video.play().catch(() => {});
             }
-
-            // Основное событие: когда видео полностью проиграно (достигнут конец)
-            video.addEventListener('ended', function() {
-                // Немедленный редирект после завершения видео
+            video.removeEventListener('ended', redirectToGemini);
+            video.addEventListener('ended', function onEnded() {
                 redirectToGemini();
             });
-        } else {
-            // Если по какой-то причине видео не найдено, но по структуре документа оно должно быть,
-            // просто редирект для безопасности не делаем, так как видео отсутствует — условие задачи требует видео.
-            // Но на всякий случай: если видео нет, можно ничего не делать или выполнить редирект? Нет, по условию
-            // видео должно быть, но в случае ошибки консоль.
         }
+        function startFadeToBlack() {
+            setTimeout(() => {
+                whiteOverlay.classList.add('hidden');
+                setTimeout(() => {
+                    startVideoFadeIn();
+                }, 600);
+            }, 600);
+        }
+        video.controls = false;
+        video.disableRemotePlayback = true;
+        video.setAttribute('controlslist', 'nodownload');
+        video.setAttribute('disablepictureinpicture', 'true');
+        video.removeAttribute('autoplay');
+        video.pause();
+        video.currentTime = 0;
+        window.addEventListener('load', function() {
+            startFadeToBlack();
+        });
+        video.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        video.style.webkitTouchCallout = 'none';
+        if (video.readyState >= 4 && video.currentTime >= video.duration) {
+            redirectToGemini();
+        }
+        setTimeout(function() {
+            if (video.currentTime >= video.duration - 0.1 && video.duration !== Infinity && !redirectTriggered) {
+                redirectToGemini();
+            }
+        }, 100);
     })();
 </script>
 </body>
