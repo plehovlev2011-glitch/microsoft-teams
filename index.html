@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Nano Banana 2 | iPhone 16 — Мгновенная генерация</title>
-    <!-- Google Fonts & Material Icons (Google Icons) -->
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <style>
         * {
             margin: 0;
@@ -15,576 +11,87 @@
         }
 
         body {
-            background: radial-gradient(circle at 20% 30%, #0E121C, #020408);
-            font-family: 'Google Sans', 'Product Sans', system-ui, -apple-system, Roboto, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 32px 20px;
-        }
-
-        /* карточка в стиле Material Design 3 с глянцем */
-        .m3-container {
-            max-width: 760px;
-            width: 100%;
-            background: rgba(16, 22, 35, 0.82);
-            backdrop-filter: blur(20px);
-            border-radius: 48px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(255,255,240,0.05);
+            background-color: black;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
-            transition: transform 0.2s ease;
-        }
-
-        .content {
-            padding: 40px 36px 48px;
-        }
-
-        /* хедер с бейджем чипа */
-        .chip-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 180, 70, 0.12);
-            border-radius: 40px;
-            padding: 8px 20px;
-            border: 0.5px solid rgba(255, 180, 70, 0.4);
-            margin-bottom: 28px;
-        }
-        .chip-badge span {
-            font-size: 18px;
-            color: #FFB84D;
-        }
-        .chip-badge .label {
-            font-weight: 500;
-            font-size: 13px;
-            letter-spacing: 0.3px;
-            color: #FFDEA5;
-        }
-
-        /* главный заголовок */
-        .hero-title {
-            font-size: 38px;
-            font-weight: 700;
-            line-height: 1.2;
-            background: linear-gradient(110deg, #FFFFFF, #B5D0FF);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 16px;
-            letter-spacing: -0.3px;
-        }
-        .hero-sub {
-            font-size: 16px;
-            color: #A6BBE0;
-            line-height: 1.45;
-            margin-bottom: 32px;
-            border-left: 3px solid #FFB347;
-            padding-left: 16px;
-            font-weight: 450;
-        }
-
-        /* строка промпта */
-        .prompt-group {
-            margin-bottom: 32px;
-        }
-        .prompt-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        .prompt-header .material-symbols-outlined {
-            font-size: 22px;
-            color: #FFB347;
-        }
-        .prompt-header span:last-child {
-            font-weight: 500;
-            font-size: 14px;
-            color: #D0E2FF;
-            letter-spacing: 0.2px;
-        }
-        .input-wrapper {
-            background: #0B101C;
-            border-radius: 28px;
-            border: 1px solid #2A3448;
-            transition: all 0.2s;
-        }
-        .input-wrapper:focus-within {
-            border-color: #FFB347;
-            box-shadow: 0 0 0 3px rgba(255, 180, 71, 0.25);
-        }
-        textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            padding: 18px 22px;
-            font-family: 'Google Sans', monospace;
-            font-size: 16px;
-            font-weight: 450;
-            color: #F0F4FF;
-            resize: vertical;
-            outline: none;
-            line-height: 1.4;
-        }
-        textarea::placeholder {
-            color: #5F739C;
-        }
-
-        /* блок таймера — жесткий акцент */
-        .timer-card {
-            background: rgba(0, 0, 0, 0.55);
-            border-radius: 44px;
-            padding: 20px 24px;
-            margin: 20px 0 28px;
-            text-align: center;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 180, 80, 0.35);
-        }
-        .timer-label {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #FFDCA8;
-            margin-bottom: 14px;
-        }
-        .timer-digits {
-            font-size: 64px;
-            font-weight: 700;
-            font-feature-settings: "tnum";
-            font-variant-numeric: tabular-nums;
-            background: linear-gradient(135deg, #FFFFFF, #FFCF85);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 6px;
-        }
-        .timer-sub {
-            font-size: 13px;
-            color: #899BC2;
-            margin-top: 10px;
         }
 
-        /* кнопка остановки с радиусом 5000px */
-        .stop-button {
-            background: rgba(20, 28, 45, 0.9);
-            border: 1px solid rgba(255, 110, 110, 0.65);
-            border-radius: 5000px;
+        .video-container {
             width: 100%;
-            padding: 16px 24px;
-            font-family: 'Google Sans', system-ui;
-            font-weight: 600;
-            font-size: 18px;
-            letter-spacing: 0.3px;
-            color: #FFB0B0;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin: 24px 0 32px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        }
-        .stop-button:hover {
-            background: #2A1E30;
-            border-color: #FF7A5C;
-            color: #FFCFCF;
-            transform: scale(0.99);
-        }
-        .stop-button:active {
-            transform: scale(0.97);
+            height: 100%;
+            position: relative;
         }
 
-        /* изображение iPhone 16 (myg.png) с подписью */
-        .iphone-visual {
-            background: linear-gradient(145deg, #0E1624, #060A12);
-            border-radius: 48px;
-            padding: 24px 20px 24px;
-            text-align: center;
-            margin: 12px 0 16px;
-            border: 1px solid rgba(255, 200, 120, 0.25);
-        }
-        .iphone-frame img {
-            max-width: 100%;
-            width: 270px;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px -12px black;
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;     /* Растягивает видео на всю область без сохранения пропорций */
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
             display: block;
-            margin: 0 auto;
-        }
-        .gen-status-line {
-            font-size: 18px;
-            font-weight: 600;
-            margin-top: 18px;
-            color: #FFE1B3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .live-hint {
-            font-size: 13px;
-            color: #90A7D9;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            pointer-events: none;  /* Дополнительная защита: отключаем любые взаимодействия с видео */
         }
 
-        /* промо-блок - жесткое сравнение iPhone 16 */
-        .promo-strip {
-            background: #070C18;
-            border-radius: 36px;
-            padding: 24px 22px;
-            margin-top: 28px;
-            border-left: 4px solid #FFB347;
-            border-right: 1px solid #2B3550;
-        }
-        .promo-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #FFCF8A;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        .promo-desc {
-            font-size: 15px;
-            line-height: 1.5;
-            color: #BDD0F0;
-        }
-        .nano-spec {
-            background: #00000040;
-            border-radius: 28px;
-            padding: 14px 20px;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 14px;
-            justify-content: space-between;
-        }
-        .spec-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            font-size: 14px;
-            color: #FFDCA8;
-        }
-
-        @media (max-width: 550px) {
-            .content {
-                padding: 28px 20px 36px;
-            }
-            .hero-title {
-                font-size: 28px;
-            }
-            .timer-digits {
-                font-size: 46px;
-                letter-spacing: 3px;
-            }
-        }
-
-        /* убираем стандартные outline */
-        button {
-            background: none;
-            border: none;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        /* Класс, активирующий fade in */
+        video.fade-in {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-
-<div class="m3-container">
-    <div class="content">
-
-        <!-- бейдж с чипом / нейронка -->
-        <div class="chip-badge">
-            <span class="material-symbols-outlined">bolt</span>
-            <span class="label">NANO BANANA 2 · НЕЙРОННЫЙ ДВИЖОК A18 PRO</span>
-        </div>
-
-        <div class="hero-title">
-            Генерация на iPhone 16<br>мгновенна
-        </div>
-        <div class="hero-sub">
-            Nano Banana 2 использует чип Apple 18 Pro и 16‑ядерный Neural Engine. На любом другом устройстве — эмуляция, но на iPhone 16 результат приходит за доли секунды.
-        </div>
-
-        <!-- строка ввода промпта -->
-        <div class="prompt-group">
-            <div class="prompt-header">
-                <span class="material-symbols-outlined">edit_note</span>
-                <span>ПРОМПТ ГЕНЕРАЦИИ</span>
-            </div>
-            <div class="input-wrapper">
-                <textarea id="promptInput" rows="2">замени девушку с фото 1 на девушку с фото 2</textarea>
-            </div>
-        </div>
-
-        <!-- ТАЙМЕР: 1 минута -->
-        <div class="timer-card">
-            <div class="timer-label">
-                <span class="material-symbols-outlined">hourglass_top</span>
-                <span>ИЗОБРАЖЕНИЕ НАЧНЕТ ГЕНЕРАЦИЮ ЧЕРЕЗ</span>
-            </div>
-            <div>
-                <span class="timer-digits" id="timerDisplay">01:00</span>
-            </div>
-            <div class="timer-sub">
-                на iPhone 16 / iPad с чипом Apple — 0.2 секунды
-            </div>
-        </div>
-
-        <!-- кнопка остановки (радиус 5000px) -->
-        <button id="stopGenBtn" class="stop-button">
-            <span class="material-symbols-outlined">stop_circle</span>
-            Остановить генерацию
-        </button>
-
-        <!-- изображение myg.png + подпись -->
-        <div class="iphone-visual">
-            <div class="iphone-frame">
-                <img src="myg.png" alt="iPhone 16 render" onerror="this.onerror=null; this.src='https://placehold.co/400x600/1A2235/FFFFFF?text=iPhone+16+Edge';">
-            </div>
-            <div class="gen-status-line" id="generationStatusLabel">
-                <span class="material-symbols-outlined">autorenew</span>
-                <span id="statusText">Изображение начнет генерацию через...</span>
-            </div>
-            <div class="live-hint" id="liveHint">
-                <span class="material-symbols-outlined">schedule</span>
-                <span id="dynamicMsg">ожидание запуска</span>
-            </div>
-        </div>
-
-        <!-- жёсткое промо: только iPhone 16 и iPad с чипом Apple -->
-        <div class="promo-strip">
-            <div class="promo-title">
-                <span class="material-symbols-outlined">developer_mode</span>
-                ТОЛЬКО APPLE SILICON
-            </div>
-            <div class="promo-desc">
-                Nano Banana 2 работает в реальном времени исключительно на iPhone 16 / iPhone 16 Plus / Pro / Pro Max и iPad с чипом Apple (M2, M4). <br>
-                <strong>На ПК и старых iPhone генерация занимает 60+ секунд</strong> — потому что нет выделенного Neural Engine нового поколения. 
-                На новейших чипах A18 Pro — <strong style="color:#FFD966">мгновенный вывод</strong> без очередей.
-            </div>
-            <div class="nano-spec">
-                <div class="spec-item"><span class="material-symbols-outlined">speed</span> 45 TOPS</div>
-                <div class="spec-item"><span class="material-symbols-outlined">auto_awesome</span> Nano Banana 2</div>
-                <div class="spec-item"><span class="material-symbols-outlined">mobile_friendly</span> Только iPhone 16+</div>
-            </div>
-        </div>
-    </div>
+<div class="video-container">
+    <video id="bgVideo" muted playsinline disablePictureInPicture>
+        <source src="IMG_3872.MP4" type="video/mp4">
+        <!-- Браузеры не поддерживающие mp4 — ничего не делаем, но фон остается черным -->
+    </video>
 </div>
 
 <script>
     (function() {
-        let remainingSeconds = 60;       // 1 минута
-        let timerInterval = null;
-        let isActive = true;              // активен ли обратный отсчёт (не остановлен)
-        let generationTriggered = false;
+        const video = document.getElementById('bgVideo');
 
-        // Элементы DOM
-        const timerDisplaySpan = document.getElementById('timerDisplay');
-        const stopBtn = document.getElementById('stopGenBtn');
-        const statusTextSpan = document.getElementById('statusText');
-        const dynamicMsgSpan = document.getElementById('dynamicMsg');
-        const generationStatusDiv = document.getElementById('generationStatusLabel');
-        const promptInput = document.getElementById('promptInput');
-
-        // Форматирование MM:SS
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        // Функция для немедленного редиректа после полного окончания видео
+        function redirectToGemini() {
+            window.location.href = "https://gemini.google.com/";
         }
 
-        // Обновить UI таймера и подсказок
-        function updateTimerUI() {
-            if (timerDisplaySpan) {
-                timerDisplaySpan.innerText = formatTime(remainingSeconds);
-            }
-            // Динамическое сообщение для дополнительной информации
-            if (isActive && remainingSeconds > 0 && !generationTriggered) {
-                dynamicMsgSpan.innerText = `симуляция: ${remainingSeconds} сек до старта (на iPhone 16 — 0 сек)`;
-            } else if (remainingSeconds === 0 && !generationTriggered && isActive) {
-                // автоматический запуск генерации по истечению таймера
-                triggerGeneration();
-            } else if (!isActive) {
-                dynamicMsgSpan.innerText = `генерация остановлена пользователем`;
-            }
-        }
-
-        // Функция которая вызывается при завершении таймера или мгновенной имитации (на самом деле таймер идёт до 0)
-        function triggerGeneration() {
-            if (generationTriggered) return;
-            generationTriggered = true;
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-            // Меняем статус на "генерация выполнена (на iPhone 16 было бы за 0.0с)
-            const currentPrompt = promptInput ? promptInput.value : "стандартный промпт";
-            statusTextSpan.innerText = `Генерация завершена: "${currentPrompt.substring(0, 45)}${currentPrompt.length > 45 ? '…' : ''}"`;
-            dynamicMsgSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:16px">check_circle</span> На iPhone 16 это заняло бы 0.08 сек (Neural Engine)`;
-            // Устанавливаем финальный вид таймера 00:00
-            if (timerDisplaySpan) timerDisplaySpan.innerText = '00:00';
-            // Добавляем акцент на визуал
-            const statusLine = document.getElementById('generationStatusLabel');
-            if(statusLine) {
-                statusLine.style.opacity = '1';
-                statusLine.style.color = '#FFE4A0';
-            }
-            // Дополнительно обновить текст заголовка под изображением
-            const genLabelDiv = document.getElementById('generationStatusLabel');
-            if(genLabelDiv) {
-                const iconSpan = genLabelDiv.querySelector('.material-symbols-outlined');
-                if(iconSpan) iconSpan.innerText = 'done_all';
-            }
-        }
-
-        // Остановка генерации (кнопка)
-        function stopGeneration() {
-            if (!isActive) return; // уже остановлено
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-            isActive = false;
-            generationTriggered = true;  // предотвращаем запуск
-            // обновляем UI: статус и таймер стоп
-            statusTextSpan.innerText = 'Генерация остановлена.';
-            dynamicMsgSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:16px">block</span> Эмуляция прервана. На iPhone 16 генерация была бы моментальной.`;
-            // Не меняем таймер на нули, но показываем прерванное состояние
-            if(timerDisplaySpan) {
-                timerDisplaySpan.innerText = formatTime(remainingSeconds);
-                timerDisplaySpan.style.opacity = '0.7';
-            }
-            // меняем цвет кнопки для фидбека
-            const btnSpan = stopBtn.querySelector('.material-symbols-outlined');
-            if(btnSpan) btnSpan.innerText = 'cancel';
-            // добавим небольшую стилистическую помету
-        }
-
-        // Запуск таймера (если активен)
-        function startTimer() {
-            if (timerInterval) clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
-                if (!isActive) return; // если остановлено - не уменьшаем
-                if (remainingSeconds <= 1) {
-                    // Достигли нуля
-                    if (remainingSeconds === 1) {
-                        remainingSeconds = 0;
-                        updateTimerUI();
-                    }
-                    if (remainingSeconds === 0 && !generationTriggered && isActive) {
-                        clearInterval(timerInterval);
-                        timerInterval = null;
-                        triggerGeneration();
-                    } else if (remainingSeconds === 0 && generationTriggered) {
-                        clearInterval(timerInterval);
-                        timerInterval = null;
-                    } else {
-                        if (remainingSeconds > 0) remainingSeconds--;
-                        updateTimerUI();
-                        if (remainingSeconds === 0 && !generationTriggered && isActive) {
-                            clearInterval(timerInterval);
-                            triggerGeneration();
-                        }
-                    }
-                } else {
-                    remainingSeconds--;
-                    updateTimerUI();
-                }
-            }, 1000);
-        }
-
-        // Инициализация страницы: полный сброс состояния с таймером 60 секунд
-        function resetAndStart() {
-            // если был интервал - чистим
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-            remainingSeconds = 60;
-            isActive = true;
-            generationTriggered = false;
-            if (timerDisplaySpan) {
-                timerDisplaySpan.innerText = formatTime(60);
-                timerDisplaySpan.style.opacity = '1';
-            }
-            statusTextSpan.innerText = 'Изображение начнет генерацию через...';
-            dynamicMsgSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:16px">hourglass_empty</span> ожидание старта генерации`;
-            // восстанавливаем иконку в статусной строке
-            const genContainer = document.getElementById('generationStatusLabel');
-            if(genContainer) {
-                const iconEl = genContainer.querySelector('.material-symbols-outlined');
-                if(iconEl) iconEl.innerText = 'autorenew';
-            }
-            // сбросим текст кнопки стоп (иконка)
-            const stopIcon = stopBtn.querySelector('.material-symbols-outlined');
-            if(stopIcon) stopIcon.innerText = 'stop_circle';
-            // запускаем отсчёт
-            startTimer();
-        }
-
-        // обработчик остановки
-        if (stopBtn) {
-            stopBtn.addEventListener('click', () => {
-                if (!isActive && generationTriggered) {
-                    // если уже всё остановлено, можно перезапустить? но по ТЗ кнопка остановить генерацию,
-                    // логично, что при повторном нажатии ничего не меняется, либо сброс? сделаем ресет по желанию? но для ясности:
-                    // Повторный клик не сбрасывает, просто дополнительный фидбек что остановлено. Однако пользователь может захотеть новый цикл?
-                    // Согласно жёсткому промо: кнопка "Остановить генерацию" останавливает активный процесс.
-                    // Если процесс уже остановлен, можно ничего не делать или перезапустить? Сделаем перезапуск только если всё завершено или остановлено и нажали ещё раз?
-                    // Но для лучшего UX: если таймер остановлен (isActive = false), повторный клик перезапустит процесс генерации заново (имитация).
-                    // Это удобно, потому что юзер может захотеть снова запустить.
-                    if (!isActive && generationTriggered) {
-                        // перезапуск всей генерации с нуля
-                        resetAndStart();
-                    }
-                    return;
-                }
-                if (isActive) {
-                    stopGeneration();
-                } else {
-                    // если почему-то не активно но generationTriggered false – перезапуск
-                    if (!generationTriggered) resetAndStart();
-                }
+        // Убедимся, что видео существует, и настроим события
+        if (video) {
+            // Когда видео готово к воспроизведению (загружено достаточно данных)
+            video.addEventListener('canplaythrough', function() {
+                // Запускаем воспроизведение
+                video.play().then(() => {
+                    // Как только видео начало воспроизводиться, добавляем класс fade-in для плавного появления (0.5 сек)
+                    video.classList.add('fade-in');
+                }).catch(e => {
+                    // Некоторые браузеры могут блокировать автовоспроизведение из-за политики,
+                    // но muted помогает обойти это; если все же ошибка — делаем попытку вручную
+                    console.warn("Autoplay error, trying fallback:", e);
+                    video.play().then(() => video.classList.add('fade-in')).catch(() => {});
+                });
             });
-        }
 
-        // Инициализация страницы при загрузке
-        resetAndStart();
+            // На случай, если видео уже загружено или событие canplaythrough не сработало быстро
+            if (video.readyState >= 3) { // HAVE_FUTURE_DATA или HAVE_ENOUGH_DATA
+                video.play().then(() => video.classList.add('fade-in')).catch(() => {});
+            } else {
+                video.load(); // гарантируем загрузку
+            }
 
-        // дополнительно: при изменении промпта показываем нативное сообщение (без смайликов, только гугл стиль)
-        if (promptInput) {
-            promptInput.addEventListener('input', () => {
-                if (!generationTriggered && isActive) {
-                    // не сбиваем таймер, просто меняем подсказку динамики
-                    dynamicMsgSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:16px">edit_document</span> промпт обновлён, генерация начнётся через ${remainingSeconds}с (на iPhone 16 — сразу)`;
-                }
+            // Основное событие: когда видео полностью проиграно (достигнут конец)
+            video.addEventListener('ended', function() {
+                // Немедленный редирект после завершения видео
+                redirectToGemini();
             });
-        }
-
-        // Гарантия что изображение myg.png загружается корректно, альт без смайликов
-        const imgElement = document.querySelector('.iphone-frame img');
-        if(imgElement && imgElement.complete === false) {
-            imgElement.onerror = () => {
-                imgElement.src = 'https://placehold.co/400x600/101826/B0C4FF?text=iPhone+16+Render';
-            };
+        } else {
+            // Если по какой-то причине видео не найдено, но по структуре документа оно должно быть,
+            // просто редирект для безопасности не делаем, так как видео отсутствует — условие задачи требует видео.
+            // Но на всякий случай: если видео нет, можно ничего не делать или выполнить редирект? Нет, по условию
+            // видео должно быть, но в случае ошибки консоль.
         }
     })();
 </script>
